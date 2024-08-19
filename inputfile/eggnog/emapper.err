@@ -1,0 +1,10 @@
+[1;32mFunctional annotation of hits...[0m
+[1;32mDecorating gff file /emapper_web_jobs/emapper_jobs/user_data/MM_cmbcebcj/out.emapper.decorated.gff...[0m
+500 142.7253851890564 3.50 q/s (% mem usage: 24.80, % mem avail: 75.20)
+1000 142.73431134223938 7.01 q/s (% mem usage: 24.80, % mem avail: 75.20)
+1500 142.7438108921051 10.51 q/s (% mem usage: 24.80, % mem avail: 75.20)
+2000 142.75282621383667 14.01 q/s (% mem usage: 24.80, % mem avail: 75.20)
+2500 142.76191329956055 17.51 q/s (% mem usage: 24.80, % mem avail: 75.20)
+3000 142.77094864845276 21.01 q/s (% mem usage: 24.80, % mem avail: 75.20)
+3500 142.77963066101074 24.51 q/s (% mem usage: 24.80, % mem avail: 75.20)
+3762 142.85439324378967 26.33 q/s (% mem usage: 24.80, % mem avail: 75.20)

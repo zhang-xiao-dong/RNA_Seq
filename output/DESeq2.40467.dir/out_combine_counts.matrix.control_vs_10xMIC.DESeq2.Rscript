@@ -1,0 +1,38 @@
+if (! require(edgeR)) {
+   source("https://bioconductor.org/biocLite.R")
+   biocLite("edgeR")
+   library(edgeR)
+}
+
+if (! require(DESeq2)) {
+   source("https://bioconductor.org/biocLite.R")
+   biocLite("DESeq2")
+   library(DESeq2)
+}
+
+data = read.table("/mnt/d/四川大学华西医院/test/github/output/out_combine_counts.matrix", header=T, row.names=1, com='')
+col_ordering = c(1,2,3,4)
+rnaseqMatrix = data[,col_ordering]
+rnaseqMatrix = round(rnaseqMatrix)
+rnaseqMatrix = rnaseqMatrix[rowSums(cpm(rnaseqMatrix) > 1) >= 2,]
+conditions = data.frame(conditions=factor(c(rep("control", 2), rep("10xMIC", 2))))
+rownames(conditions) = colnames(rnaseqMatrix)
+ddsFullCountTable <- DESeqDataSetFromMatrix(
+    countData = rnaseqMatrix,
+    colData = conditions,
+    design = ~ conditions)
+dds = DESeq(ddsFullCountTable)
+contrast=c("conditions","control","10xMIC")
+res = results(dds, contrast)
+baseMeanA <- rowMeans(counts(dds, normalized=TRUE)[,colData(dds)$conditions == "control"])
+baseMeanB <- rowMeans(counts(dds, normalized=TRUE)[,colData(dds)$conditions == "10xMIC"])
+res = cbind(baseMeanA, baseMeanB, as.data.frame(res))
+res = cbind(sampleA="control", sampleB="10xMIC", as.data.frame(res))
+res$padj[is.na(res$padj)]  <- 1
+res = as.data.frame(res[order(res$pvalue),])
+write.table(res, file='out_combine_counts.matrix.control_vs_10xMIC.DESeq2.DE_results', sep='	', quote=FALSE)
+write.table(rnaseqMatrix, file='out_combine_counts.matrix.control_vs_10xMIC.DESeq2.count_matrix', sep='	', quote=FALSE)
+source("/mnt/d/四川大学华西医院/test/github/script/rnaseq_plot_funcs.R")
+pdf("out_combine_counts.matrix.control_vs_10xMIC.DESeq2.DE_results.MA_n_Volcano.pdf")
+plot_MA_and_Volcano(rownames(res), log2(res$baseMean+1), res$log2FoldChange, res$padj)
+dev.off()

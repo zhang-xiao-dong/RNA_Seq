@@ -1,0 +1,6 @@
+SRR7064995	../06_bam/SRR7064995_sorted.bam
+SRR7064996	../06_bam/SRR7064996_sorted.bam
+SRR7064997	../06_bam/SRR7064997_sorted.bam
+SRR7064998	../06_bam/SRR7064998_sorted.bam
+SRR7064999	../06_bam/SRR7064999_sorted.bam
+SRR7065000	../06_bam/SRR7065000_sorted.bam
